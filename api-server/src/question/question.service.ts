@@ -27,4 +27,13 @@ export class QuestionService {
     const question = await this.questionModel.findByIdAndDelete(id);
     return question.id;
   }
+
+  async getAllbyCategory(
+    category: string,
+    testNumber: number,
+  ): Promise<Question[]> {
+    const query = { categoryName: category, testNumber: testNumber };
+    const questions = await this.questionModel.find(query);
+    return questions;
+  }
 }

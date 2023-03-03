@@ -13,10 +13,13 @@ export class Question {
   question: string;
 
   @Prop()
+  img: string;
+
+  @Prop()
   categoryName: string;
 
   @Prop()
-  testNumber: string;
+  testNumber: number;
 
   @Prop()
   inccorect_answers: string[];
