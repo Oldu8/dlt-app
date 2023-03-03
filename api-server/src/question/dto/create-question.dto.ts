@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-export class CreateTestDto {
+export class CreateQuestionDto {
   readonly testID: number;
   readonly question: string;
   readonly categoryName: string;
   readonly testNumber: string;
+  readonly correct_answer: string;
   readonly incorrect_answers: string[];
-  readonly correct_answers: string;
 }
