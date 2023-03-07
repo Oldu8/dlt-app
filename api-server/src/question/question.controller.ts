@@ -26,10 +26,15 @@ export class QuestionController {
     console.log(id);
     return this.questionService.getOne(id);
   }
-
   @Get("/all")
   getAll() {
     return this.questionService.getAll();
+  }
+
+  @Get("/bytestid/:testid")
+  getOneByTestId(@Param("testid") testid: number) {
+    console.log(testid);
+    return this.questionService.getOneByTestId(testid);
   }
 
   @Get("/category/:category")

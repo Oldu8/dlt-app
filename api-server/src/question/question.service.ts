@@ -23,6 +23,13 @@ export class QuestionService {
     const question = await this.questionModel.findById(id);
     return question;
   }
+
+  async getOneByTestId(testid: number): Promise<Question[]> {
+    const query = { testID: testid };
+    const question = await this.questionModel.find(query);
+    return question;
+  }
+
   async delete(id: ObjectId): Promise<ObjectId> {
     const question = await this.questionModel.findByIdAndDelete(id);
     return question.id;
