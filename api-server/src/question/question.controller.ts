@@ -20,7 +20,6 @@ export class QuestionController {
     return this.questionService.create(dto);
   }
 
-  // Peredelat s id na testID
   @Get("/byid/:id")
   getOne(@Param("id") id: ObjectId) {
     console.log(id);
