@@ -4,7 +4,7 @@ import React from "react";
 function Create() {
   return (
     <MainLayout>
-      <h2>Create test:</h2>
+      <h1 className="titlePage">Create test page</h1>
     </MainLayout>
   );
 }
