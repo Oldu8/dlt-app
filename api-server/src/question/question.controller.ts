@@ -12,7 +12,7 @@ import { ObjectId } from "mongoose";
 import { CreateQuestionDto } from "./dto/create-question.dto";
 import { QuestionService } from "./question.service";
 
-@Controller("/questions")
+@Controller("/tests")
 export class QuestionController {
   constructor(private questionService: QuestionService) {}
   @Post()
@@ -20,14 +20,14 @@ export class QuestionController {
     return this.questionService.create(dto);
   }
 
-  @Get("/byid/:id")
-  getOne(@Param("id") id: ObjectId) {
-    console.log(id);
-    return this.questionService.getOne(id);
-  }
   @Get("/all")
   getAll() {
     return this.questionService.getAll();
+  }
+  @Get(":id")
+  getOne(@Param("id") id: ObjectId) {
+    console.log(id);
+    return this.questionService.getOne(id);
   }
 
   @Get("/bytestid/:testid")

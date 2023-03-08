@@ -12,7 +12,7 @@ export class QuestionService {
   ) {}
 
   async create(dto: CreateQuestionDto): Promise<Question> {
-    const question = await this.questionModel.create({ ...dto });
+    const question = await this.questionModel.create(dto);
     return question;
   }
   async getAll(): Promise<Question[]> {

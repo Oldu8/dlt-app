@@ -13,7 +13,7 @@ export class Question {
   question: string;
 
   @Prop()
-  img: string;
+  img?: string;
 
   @Prop()
   categoryName: string;
@@ -22,7 +22,7 @@ export class Question {
   testNumber: number;
 
   @Prop()
-  inccorect_answers: string[];
+  incorrect_answers: string[];
 
   @Prop()
   correct_answer: string;
