@@ -3,7 +3,7 @@ import MainLayout from "@/layouts/MainLayout";
 import { ITest } from "@/types/test";
 import { Box, Button, Card, Grid } from "@mui/material";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 
 function Index() {
   const router = useRouter();
@@ -19,13 +19,18 @@ function Index() {
     },
     {
       _id: "64020560960ec1942bbf0566",
-      testID: 1123,
+      testID: 123,
       question: "wanna bear?",
       categoryName: "drivingtest",
       inccorect_answers: [],
       correct_answer: "Daaaaa",
     },
   ];
+
+  useEffect(() => {
+    // dispatch(fetchAllTests());
+  }, []);
+
   return (
     <MainLayout>
       <h1 className="titlePage">List of all tests</h1>

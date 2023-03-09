@@ -1,8 +1,14 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import MainLayout from "@/layouts/MainLayout";
+import { useEffect } from "react";
+import { getAllTests } from "@/store/functions";
 
 export default function Home() {
+  // useEffect(() => {
+  //   getAllTests();
+  // }, []);
+
   return (
     <>
       <Head>
