@@ -9,14 +9,15 @@ import {
   Query,
 } from "@nestjs/common";
 import { ObjectId } from "mongoose";
-import { CreateQuestionDto } from "./dto/create-question.dto";
+import { CreateRawQuestionDto } from "./dto/create-question.dto";
 import { QuestionService } from "./question.service";
 
 @Controller("/tests")
 export class QuestionController {
   constructor(private questionService: QuestionService) {}
+
   @Post()
-  create(@Body() dto: CreateQuestionDto) {
+  createRaw(@Body() dto: CreateRawQuestionDto) {
     return this.questionService.create(dto);
   }
 
@@ -24,15 +25,14 @@ export class QuestionController {
   getAll() {
     return this.questionService.getAll();
   }
+
   @Get(":id")
   getOne(@Param("id") id: ObjectId) {
-    console.log(id);
     return this.questionService.getOne(id);
   }
 
   @Get("/bytestid/:testid")
   getOneByTestId(@Param("testid") testid: number) {
-    console.log(testid);
     return this.questionService.getOneByTestId(testid);
   }
 

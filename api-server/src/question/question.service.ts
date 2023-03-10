@@ -2,7 +2,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, ObjectId } from "mongoose";
-import { CreateQuestionDto } from "./dto/create-question.dto";
+import { CreateRawQuestionDto } from "./dto/create-question.dto";
 import { Question, QuestionDocument } from "./schemas/question.schems";
 
 @Injectable()
@@ -11,10 +11,27 @@ export class QuestionService {
     @InjectModel(Question.name) private questionModel: Model<QuestionDocument>,
   ) {}
 
-  async create(dto: CreateQuestionDto): Promise<Question> {
-    const question = await this.questionModel.create(dto);
-    return question;
+  async create(dto: CreateRawQuestionDto): Promise<Question> {
+    const {
+      incorrect_answers_1,
+      incorrect_answers_2,
+      incorrect_answers_3,
+      ...rest
+    } = dto;
+
+    const incorrect_answers = [
+      incorrect_answers_1,
+      incorrect_answers_2,
+      incorrect_answers_3,
+    ];
+
+    const createdQuestion = new this.questionModel({
+      ...rest,
+      incorrect_answers,
+    });
+    return createdQuestion.save();
   }
+
   async getAll(): Promise<Question[]> {
     const questions = await this.questionModel.find();
     return questions;

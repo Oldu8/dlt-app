@@ -8,22 +8,16 @@ export type QuestionDocument = HydratedDocument<Question>;
 export class Question {
   @Prop()
   testID: number;
-
   @Prop()
   question: string;
-
   @Prop()
   img?: string;
-
   @Prop()
   categoryName: string;
-
   @Prop()
   testNumber: number;
-
   @Prop()
   incorrect_answers: string[];
-
   @Prop()
   correct_answer: string;
 }

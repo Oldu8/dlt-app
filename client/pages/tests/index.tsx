@@ -17,17 +17,18 @@ function Index({ tests }: testsProps) {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("tests");
     if (tests && tests.length > 0) {
-      console.log("tests loaded");
-
       setIsLoading(false);
       setTestsData(tests);
     }
   }, [tests]);
 
   if (isLoading) {
-    return <h3>Loading...</h3>;
+    return (
+      <MainLayout>
+        <h3>Loading...</h3>;
+      </MainLayout>
+    );
   }
   return (
     <MainLayout>

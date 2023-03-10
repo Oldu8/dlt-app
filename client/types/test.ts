@@ -4,6 +4,6 @@ export interface ITest {
   question: string;
   img?: string;
   categoryName: string;
-  inccorect_answers: string[];
+  incorrect_answers: string[];
   correct_answer: string;
 }

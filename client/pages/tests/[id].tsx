@@ -2,22 +2,19 @@
 import MainLayout from "@/layouts/MainLayout";
 import { ITest } from "@/types/test";
 import { Delete } from "@mui/icons-material";
-import { Button, Grid, IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "../../styles/TestPage.module.scss";
 
-const TestPage = () => {
-  const test: ITest = {
-    _id: "64020560960ec1942bbf0566",
-    testID: 1123,
-    question: "asdaaaaaa?",
-    img: "https://res.cloudinary.com/depqxsflw/image/upload/v1665444572/Image%20for%20tests/ds_t1_q1_hepvxn.png",
-    categoryName: "drivingtest",
-    inccorect_answers: [],
-    correct_answer: "Daaaaa",
-  };
+export interface testProps {
+  test: ITest;
+}
+
+function TestPage({ test }: testProps) {
   const router = useRouter();
+  console.log(test);
 
   return (
     <MainLayout>
@@ -49,8 +46,14 @@ const TestPage = () => {
             <strong>Correct answer:</strong> {test.correct_answer}
           </p>
           <ul>
-            <strong>Inccorect answers:</strong>
-            {test.inccorect_answers}
+            {test.incorrect_answers.map((test) => {
+              return (
+                <li className={styles.testP} key={test}>
+                  <strong>Inccorect answers: </strong>
+                  {test}
+                </li>
+              );
+            })}
           </ul>
         </div>
         <IconButton>
@@ -59,6 +62,15 @@ const TestPage = () => {
       </div>
     </MainLayout>
   );
-};
+}
 
 export default TestPage;
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const id = params?.id;
+  const res = await fetch(`http://localhost:5000/tests/${id}`);
+  const test = await res.json();
+  return {
+    props: { test },
+  };
+};
