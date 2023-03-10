@@ -1,36 +1,34 @@
-import { TestList } from "@/components/TestList";
+import { TestItem } from "@/components/TestItem";
 import MainLayout from "@/layouts/MainLayout";
 import { ITest } from "@/types/test";
 import { Box, Button, Card, Grid } from "@mui/material";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-function Index() {
+export interface testsProps {
+  tests: ITest[];
+}
+
+function Index({ tests }: testsProps) {
+  const [testsData, setTestsData] = useState<ITest[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const router = useRouter();
-  const tests: ITest[] = [
-    {
-      _id: "64020560960ec1942bbf0566",
-      testID: 1123,
-      question: "asdaaaaaa?",
-      img: "https://res.cloudinary.com/depqxsflw/image/upload/v1665444572/Image%20for%20tests/ds_t1_q1_hepvxn.png",
-      categoryName: "drivingtest",
-      inccorect_answers: [],
-      correct_answer: "Daaaaa",
-    },
-    {
-      _id: "64020560960ec1942bbf0566",
-      testID: 123,
-      question: "wanna bear?",
-      categoryName: "drivingtest",
-      inccorect_answers: [],
-      correct_answer: "Daaaaa",
-    },
-  ];
 
   useEffect(() => {
-    // dispatch(fetchAllTests());
-  }, []);
+    console.log("tests");
+    if (tests && tests.length > 0) {
+      console.log("tests loaded");
 
+      setIsLoading(false);
+      setTestsData(tests);
+    }
+  }, [tests]);
+
+  if (isLoading) {
+    return <h3>Loading...</h3>;
+  }
   return (
     <MainLayout>
       <h1 className="titlePage">List of all tests</h1>
@@ -47,7 +45,13 @@ function Index() {
               </Button>
             </Grid>
           </Box>
-          <TestList tests={tests} />
+          <Grid container direction="column">
+            <Box p={2}>
+              {testsData.map((test) => {
+                return <TestItem key={test.testID} test={test} />;
+              })}
+            </Box>
+          </Grid>
         </Card>
       </Grid>
     </MainLayout>
@@ -55,3 +59,12 @@ function Index() {
 }
 
 export default Index;
+
+export const getServerSideProps: GetServerSideProps<testsProps> = async () => {
+  const res = await fetch(`http://localhost:5000/tests/all`);
+  const tests = await res.json();
+
+  return {
+    props: { tests },
+  };
+};
